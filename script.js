@@ -1,8 +1,8 @@
-console.log("Hello World");
+// هنا قمنا بتعريف متغيرات وضعنا فيها أعداد أسيّة
+let x = 1234e5;   // 1234e5 = 1234 * 100000 = 123400000
+let y = 1234e-5;  // 1234e-5 = 1234 * -100000 = 0.01234
 
-let name = "John Doe";
-console.log(name);
-
-console.log("My name is " + name);
-
-console.log(10 + 10);
+// هنا قمنا بطباعة قيم المتغيرات التي قمنا بتعريفها
+document.write('x = ' + x + '<br>');
+document.write('y = ' + y + '<br>');
+document.write('x + y = ' + x + y);
