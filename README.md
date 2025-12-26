@@ -1,83 +1,73 @@
-# 🚀 ROADMAP: طريقي المكثف والموجه من JavaScript إلى React
+# React + TypeScript + Vite
 
-هذه هي الخطة المكثفة والموجهة ذاتياً (Self-Paced, Output-Oriented) التي أتبعها للانتقال من مبتدئ في JavaScript إلى مطور جاهز لبناء تطبيقات React.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-**المدة الإجمالية المستهدفة:** 6 أسابيع (يتطلب 4-6 ساعات عمل/برمجة يومياً).
-**الهاشتاج الرسمي للتوثيق:** `#طريقي_الى_React`
+Currently, two official plugins are available:
 
----
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## 🎯 الأهداف الرئيسية
+## React Compiler
 
-* إتقان الميزات الحديثة في JavaScript (ES6+).
-* التحول إلى نمط البرمجة الوظيفية (Functional Programming).
-* تطوير 8 مشاريع أساسية لتوثيق التقدم.
-* إطلاق أول تطبيق React وظيفي.
+The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
 
----
+## Expanding the ESLint configuration
 
-## 🛠️ الأدوات الإلزامية
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-| الأداة | الغرض |
-| :--- | :--- |
-| **GitHub** | مصدر التوثيق ورفع جميع المشاريع الإلزامية. |
-| **VS Code** | محرر الأكواد الأساسي. |
-| **MDN Web Docs** | المرجع الأساسي للمفاهيم النظرية. |
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
----
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-## 📘 الخطة الأسبوعية والمشاريع الإلزامية
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
-### 🥇 المرحلة 1: أساسيات JS المركزة (1.5 أسبوع)
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-* **التركيز:** قواعد اللغة، الكائنات، المصفوفات، منطق التحكم بالتدفق (Control Flow).
-* **المخرجات:** تطبيقات في **Console** فقط.
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-| المهام الرئيسية | المشروع الإلزامي (Output) |
-| :--- | :--- |
-| **JS Core:** `let`, `const` (الأولوية), `Functions`, `if/else`, `switch`. | **P1: آلة حاسبة لوغاريتمية** (`switch`، `if/else`). |
-| **Data Structure:** التعامل مع **Arrays** و **Objects**. الحلقات التكرارية (`for/while`). | **P2: منظم بيانات طلابي** (Array of Objects) مع وظيفة بحث بسيطة في الكونسول. |
-| **توثيق التقدم:** منشور عن أفضل ممارسات استخدام `const` ومشاركة كود P2. |
-
----
-
-### 🥈 المرحلة 2: التفاعل و ES6+ الجوهرية (2 أسابيع)
-
-* **التركيز:** ربط JS بالصفحة (DOM) وتثبيت أهم ميزات ES6+ (مفتاح React).
-* **المخرجات:** تفاعل مرئي مع المستخدم.
-
-| المهام الرئيسية | المشروع الإلزامي (Output) |
-| :--- | :--- |
-| **DOM Manipulation:** `querySelector`، `addEventListener`، `classList`. | **P3: تطبيق To-Do List كامل مرئي** (إضافة/حذف/تحديد كمنجز). |
-| **ES6+ Essentials:** **`Arrow Functions`**، **`Destructuring`** (Objects/Arrays)، **`Spread/Rest Operators`**. | **P4: وظيفة لنسخ ودمج الكائنات** باستخدام `Spread Operator` و `Destructuring`. |
-| **توثيق التقدم:** عرض مشروع P3 (GitHub و Demo) والتأكيد على أهمية `Arrow Functions`. |
-
----
-
-### 🥉 المرحلة 3: الوظيفية والمزامنة (1 أسبوع)
-
-* **التركيز:** إتقان الـ Higher-Order Functions والتعامل مع APIs.
-* **المخرجات:** معالجة البيانات المعقدة وجلبها.
-
-| المهام الرئيسية | المشروع الإلزامي (Output) |
-| :--- | :--- |
-| **Functional Core:** **الإتقان المطلق لـ `map()`, `filter()`, `reduce()`**. | **P5: لوحة تحكم للمنتجات** تستخدم `map` للعرض، `filter` للتصفية، و `reduce` لحساب الإجمالي. |
-| **Asynchronous JS:** `Promises`، و التركيز على **`async/await`**، و **`fetch`** API. | **P6: عارض بسيط للطقس** يجلب بيانات من API عام باستخدام `async/await` لعرضها. |
-| **توثيق التقدم:** منشور مكثف: "إتقان `map/filter/reduce` هو الجسر الأخير لـ React!". مشاركة كود P5/P6. |
-
----
-
-### 🏅 المرحلة 4: الانطلاق نحو React (1.5 أسبوع)
-
-* **التركيز:** بناء المكونات (Components) وفهم الآلية الأساسية (Hooks).
-* **المخرجات:** تطبيق React وظيفي.
-
-| المهام الرئيسية | المشروع الإلزامي (Output) |
-| :--- | :--- |
-| **React Fundamentals:** إعداد بيئة React (Vite)، فهم **JSX**، وبناء **Functional Components**. | **P7: مكون عرض بيانات ثابت** (Hello World / Component Structure). |
-| **Core Hooks:** إتقان **`useState`** و **`useEffect`** للـ Side Effects. | **P8: تطبيق متكامل لعرض بيانات API باستخدام React** (توظيف `useState` و `useEffect`). |
-| **توثيق التقدم:** إعلان إنجاز خطة الـ 6 أسابيع. نشر الرابط الكامل لمشروع React النهائي (P8) على GitHub و Live Demo. |
-
----
-
-> **ملاحظة للمستخدم:** تذكر، الالتزام بهذا الجدول الزمني يتطلب تفرغاً وتركيزاً عالياً. لا تتردد في قضاء وقت إضافي في أي مرحلة تشعر فيها بالحاجة لتقوية الأساس.
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
